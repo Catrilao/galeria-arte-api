@@ -1,0 +1,24 @@
+### Mostrar Clientes
+GET http://localhost:5000/clientes
+
+### Mostrar Artistas
+GET http://localhost:5000/artistas
+
+### Mostrar Obras
+GET http://localhost:5000/obras
+
+### Mostrar Imagenes
+GET http://localhost:5000/imagenes/1
+
+### Mostrar Artista, Obras e Imagenes
+GET http://localhost:5000/obrasArtista
+
+### Agregar un cliente
+POST http://localhost:5000/clientes
+content-type: application/json
+
+{
+  "nombre": "nombre",
+  "correo": "correo@gmail.com",
+  "contrasenia": "password super segura"
+}

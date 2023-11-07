@@ -1,0 +1,307 @@
+openapi: "3.0.0"
+info:
+  title: API galería de arte
+  description: Esta API se encarga de manejar la información de la base de datos de una galería de arte.
+  version: 1.0.0
+servers:
+  - url: https://galeria-arte-api.onrender.com
+tags:
+  - name: clientes
+    description: Este endpoint maneja toda la información de los clientes.
+  - name: artistas
+    description: Este endpoint maneja toda la información de los artistas.
+  - name: obrasArtista
+    description: Este endpoint maneja la información de los artistas y sus obras de arte asociadas.
+
+paths:
+  /clientes:
+    post:
+      tags:
+        - clientes
+      summary: Inserta un nuevo cliente a la BD.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/bodyClientesPost"
+        required: true
+      responses:
+        201:
+          description: (Created) El cliente ha sido añadido a la BD.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/exitoClientesPost"
+        500:
+          $ref: "#/components/responses/serverError"
+
+  /clientes/{idCliente}:
+    get:
+      tags:
+        - clientes
+      summary: Obtiene la información de un cliente según un id.
+      parameters:
+        - name: idCliente
+          in: path
+          description: Identificador del cliente.
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: (Ok) Información del cliente obtenida con éxito.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/exitoClientesGet"
+        404:
+          description: Cliente no encontrado.
+        500:
+          $ref: "#/components/responses/serverError"
+
+  /artistas:
+    post:
+      tags:
+        - artistas
+      summary: Agrega un artista a la BD.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/bodyArtistasPost"
+        required: true
+      responses:
+        201:
+          description: (Created) Artista ha sido añadido a la BD.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/exitoArtistasPost"
+        500:
+          $ref: "#/components/responses/serverError"
+    get:
+      tags:
+        - artistas
+      summary: Obtiene la información de todos los artistas.
+      responses:
+        200:
+          description: (Ok) Información de los artistas obtenida con éxito.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/exitoArtistasGet"
+        500:
+          $ref: "#/components/responses/serverError"
+
+  /obrasArtista:
+    get:
+      tags:
+        - obrasArtista
+      summary: Obtiene los datos de los artistas y sus obras de arte.
+      responses:
+        200:
+          description: (Ok) Información del cliente obtenida con éxito.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/exitoObrasArtistaGet"
+        500:
+          $ref: "#/components/responses/serverError"
+
+components:
+  responses:
+    serverError:
+      description: Error interno del servidor.
+
+  schemas:
+    bodyClientesPost:
+      type: object
+      properties:
+        nombre:
+          type: string
+          description: Nombre de cliente.
+          example: "Marco Nuñez"
+        correo:
+          type: string
+          description: Correo de la cuenta del cliente.
+          example: "marco@nuñez.com"
+        contrasenia:
+          type: string
+          description: Contraseña del cliente.
+          example: "contraseña secreta"
+
+    bodyArtistasPost:
+      type: object
+      properties:
+        respuesta:
+          type: object
+          description: Objeto que contiene la respuesta de la creación de un nuevo artista.
+          properties:
+            nombre:
+              type: string
+              description: Nombre del artista registrado.
+              example: "Julian Zapata"
+            correo:
+              type: string
+              description: Correo del artista registrado.
+              example: "julianzapata@gmail.com"
+            telefono:
+              type: integer
+              description: Teléfono del artista.
+              example: 123456789
+            contrasenia:
+              type: string
+              description: Contraseña hasheada del artista.
+              example: "contraseña"
+            nacionalidad:
+              type: string
+              description: Nacionalidad del artista.
+              example: "Italiano"
+            imagen:
+              type: string
+              description: URL de la imagen del artista.
+              example: "https://commons.wikimedia.org/wiki/File:Leonardo_da_Vinci_(1452-1519)_-_The_Last_Supper_(1495-1498).jpg?uselang=fr"
+
+    exitoClientesPost:
+      type: object
+      properties:
+        respuesta:
+          type: object
+          description: Objeto que contiene la respuesta de la creación de un nuevo cliente.
+          properties:
+            id:
+              type: string
+              description: Id del cliente generado aleatoriamente.
+              example: "6da2c0d3-7a8c-4ed7-ad08-b971b6e26b2e"
+            nombre:
+              type: string
+              description: Nombre del cliente registrado.
+              example: "Julian Zapata"
+            correo:
+              type: string
+              description: Correo del cliente registrado.
+              example: "julianzapata@gmail.com"
+            contrasenia:
+              type: string
+              description: Contraseña hasheada del cliente.
+              example: "$2b$10$l429Jm1oFQWl2mh4Pn.4k.Nx3/EmmlIVAxGi2360EMn..."
+
+    exitoClientesGet:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Id del cliente.
+          example: "6da2c0d3-7a8c-4ed7-ad08-b971b6e26b2e"
+        nombre:
+          type: string
+          description: Nombre de cliente.
+          example: "Julian Zapata"
+        correo:
+          type: string
+          description: Correo de la cuenta del cliente.
+          example: "julianzapata@gmail.com"
+        contrasenia:
+          type: string
+          description: Contraseña del cliente.
+          example: "$2b$10$l429Jm1oFQWl2mh4Pn.4k.Nx3/EmmlIVAxGi2360EMn..."
+
+    exitoArtistasPost:
+      type: object
+      properties:
+        respuesta:
+          type: object
+          description: Objeto que contiene la respuesta de la creación de un nuevo artista.
+          properties:
+            id:
+              type: string
+              description: Id del artista generado aleatoriamente.
+              example: "6da2c0d3-7a8c-4ed7-ad08-b971b6e26b2e"
+            nombre:
+              type: string
+              description: Nombre del artista registrado.
+              example: "Julian Zapata"
+            correo:
+              type: string
+              description: Correo del artista registrado.
+              example: "julianzapata@gmail.com"
+            telefono:
+              type: integer
+              description: Teléfono del artista.
+              example: 123456789
+            contrasenia:
+              type: string
+              description: Contraseña hasheada del artista.
+              example: "$2b$10$l429Jm1oFQWl2mh4Pn.4k.Nx3/EmmlIVAxGi2360EMn..."
+            nacionalidad:
+              type: string
+              description: Nacionalidad del artista.
+              example: "Italiano"
+            imagen:
+              type: string
+              description: URL de la imagen del artista.
+              example: "https://commons.wikimedia.org/wiki/File:Leonardo_da_Vinci_(1452-1519)_-_The_Last_Supper_(1495-1498).jpg?uselang=fr"
+
+    exitoArtistasGet:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Id del artista.
+          example: "1"
+        nombre:
+          type: string
+          description: Nombre de artista.
+          example: "Leonardo da Vinci"
+        correo:
+          type: string
+          description: Correo de la cuenta del artista.
+          example: "leonardo@example.com"
+        telefono:
+          type: integer
+          description: Contraseña del cliente.
+          example: 1234567890
+        briografia:
+          type: string
+          description: Briografia del artista.
+          example: "Pintor, escultor, arquitecto, cientifico e inventor italiano del Renacimiento."
+        nacionalidad:
+          type: string
+          description: Nacionalidad del artista.
+          example: "Italiano"
+        imagen:
+          type: string
+          description: URL de la imagen del artista.
+          example: "https://commons.wikimedia.org/wiki/File:Leonardo_da_Vinci_(1452-1519)_-_The_Last_Supper_(1495-1498).jpg?uselang=fr"
+        contrasenia:
+          type: string
+          description: "Contraseña hasheada del artista"
+          example: "$2b$10$l429Jm1oFQWl2mh4Pn.4k.Nx3/EmmlIVAxGi2360EMn..."
+
+    exitoObrasArtistaGet:
+      type: object
+      properties:
+        id_artista:
+          type: string
+          description: Id del artista.
+          example: "1"
+        nombre_artista:
+          type: string
+          description: Nombre del artista.
+          example: "Vincent van Gogh"
+        titulo:
+          type: string
+          description: Titulo de la obra.
+          example: "La Noche Estrellada"
+        anio_creacion:
+          type: integer
+          description: Año en que se hizo la obra.
+          example: 1889
+        precio:
+          type: integer
+          description: precio de la obra.
+          example: 2000000
+        ruta:
+          type: string
+          description: URL de imagen de la obra.
+          example: "https://res.cloudinary.com/dwab9zcnt/image/upload/c_thumb,e_improve,g_auto,h_600,w_500/v1695795748/imagenes/imagen1_gphl7r.png"
