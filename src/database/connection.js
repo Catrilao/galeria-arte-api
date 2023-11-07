@@ -1,5 +1,5 @@
 import mysql from 'mysql2/promise'
-import CONFIGURACION_BD from '../constants/constants.js'
+import CONFIGURACION_BD from './constants.js'
 
 const DEFAULT_CONFIG = {
   host: CONFIGURACION_BD.HOST,
