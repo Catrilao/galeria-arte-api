@@ -1,6 +1,7 @@
 import { randomUUID } from 'crypto'
-import pool from '../database/database.js'
-import hash from '../hash/hash.js'
+import pool from '../database/connection.js'
+import hash from '../utils/hash.js'
+
 export class Consultas {
   static async getClientes () {
     try {

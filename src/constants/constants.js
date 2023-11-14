@@ -9,15 +9,18 @@ const PASSWORD = process.env.PASSWORD
 
 const RUN_PORT = process.env.RUN_PORT
 
-const CONFIGURACION_BD = {
+const DB_ENV = process.env.DB_ENV
+
+const dbConfig = {
   DATABASE_URL,
   HOST,
   USER,
   DATABASE,
   PASSWORD,
-  RUN_PORT
+  RUN_PORT,
+  DB_ENV
 }
 
-Object.freeze(CONFIGURACION_BD)
+Object.freeze(dbConfig)
 
-export default CONFIGURACION_BD
+export default dbConfig

@@ -1,22 +1,28 @@
 {
-  "name": "backend",
+  "name": "galeria-arte-api",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node --watch src/index.js"
+    "local": "set DB_ENV=local&& nodemon src/index.js",
+    "remote": "set DB_ENV=remote&& nodemon src/index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
+    "morgan": "^1.10.0",
     "mysql2": "^3.6.1",
+    "swagger-ui-express": "^5.0.0",
     "uuid": "^9.0.1",
-    "yamljs": "^0.3.0",
-    "bcrypt": "^5.1.1"
+    "yamljs": "^0.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
   }
 }

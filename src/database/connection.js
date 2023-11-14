@@ -1,14 +1,21 @@
 import mysql from 'mysql2/promise'
-import CONFIGURACION_BD from './constants.js'
+import dbConfig from '../constants/constants.js'
 
 const DEFAULT_CONFIG = {
-  host: CONFIGURACION_BD.HOST,
-  user: CONFIGURACION_BD.USER,
-  database: CONFIGURACION_BD.DATABASE,
-  password: CONFIGURACION_BD.PASSWORD
+  host: dbConfig.HOST,
+  user: dbConfig.USER,
+  database: dbConfig.DATABASE,
+  password: dbConfig.PASSWORD,
 }
 
-const connectionString = CONFIGURACION_BD.DATABASE_URL || DEFAULT_CONFIG
+let connectionString;
+if (dbConfig.DB_ENV === 'local') {
+  connectionString = DEFAULT_CONFIG
+} else if (dbConfig.DB_ENV === 'remote') {
+  connectionString = dbConfig.DATABASE_URL
+} else {
+  throw new Error('No se ha especificado un entorno de base de datos válido')
+}
 
 const pool = mysql.createPool(connectionString)
 
