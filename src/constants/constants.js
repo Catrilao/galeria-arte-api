@@ -1,6 +1,7 @@
 import 'dotenv/config'
 
 const DATABASE_URL = process.env.DATABASE_URL
+const DATABASE_URI = process.env.DATABASE_URI
 
 const HOST = process.env.HOST
 const USER = process.env.USER
@@ -13,6 +14,7 @@ const DB_ENV = process.env.DB_ENV
 
 const dbConfig = {
   DATABASE_URL,
+  DATABASE_URI,
   HOST,
   USER,
   DATABASE,

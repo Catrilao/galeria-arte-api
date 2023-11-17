@@ -3,6 +3,10 @@ import pool from '../database/connection.js'
 import hash from '../utils/hash.js'
 
 export class Consultas {
+  constructor (dbType) {
+    this.dbType = dbType
+  }
+
   static async getClientes () {
     try {
       const [clientes] = await pool.query('SELECT * FROM cliente;')

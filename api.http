@@ -1,0 +1,41 @@
+### Mostrar Clientes
+GET http://localhost:7892/clientes
+
+### Mostrar Artistas
+GET http://localhost:7892/artistas
+
+### Mostrar Artistas sequelize
+GET http://localhost:7892/artistas/sql
+
+### Crear Artista sequelize
+POST http://localhost:7892/artistas/sql
+Content-Type: application/json
+
+{
+  "nombre_artista": "aaaaaaaaaaaaaaaaaaaaaa",
+  "correo_artista": "aaaaaaaaaaaaaaaaaaaae@example.com",
+  "telefono": 987654321,
+  "biografia": "Prueba de biografia.",
+  "nacionalidad": "Italiano",
+  "imagen": "url de imagen",
+  "contrasenia_artista": "constrasenia segura"
+}
+
+### Mostrar Obras
+GET http://localhost:7892/obras
+
+### Mostrar Imagenes
+GET http://localhost:7892/imagenes/1
+
+### Mostrar Artista, Obras e Imagenes
+GET http://localhost:7892/obrasArtista
+
+### Agregar un cliente
+POST http://localhost:7892/clientes
+content-type: application/json
+
+{
+  "nombre": "nombre",
+  "correo": "correo@gmail.com",
+  "contrasenia": "password super segura"
+}

@@ -5,10 +5,10 @@ const DEFAULT_CONFIG = {
   host: dbConfig.HOST,
   user: dbConfig.USER,
   database: dbConfig.DATABASE,
-  password: dbConfig.PASSWORD,
+  password: dbConfig.PASSWORD
 }
 
-let connectionString;
+let connectionString
 if (dbConfig.DB_ENV === 'local') {
   connectionString = DEFAULT_CONFIG
 } else if (dbConfig.DB_ENV === 'remote') {
