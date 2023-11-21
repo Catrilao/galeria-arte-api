@@ -8,7 +8,7 @@ export class Consultas {
       if (dbType === 'sql') {
         const artistas = await artistaSql.findAll()
         return artistas
-      } else if (this.dbType === 'nosql') {
+      } else if (dbType === 'nosql') {
         const artistas = await artistaNoSql.find({}).exec()
         return artistas
       }
@@ -20,20 +20,28 @@ export class Consultas {
   static async createArtista ({ dbType, datosArtista }) {
     try {
       if (dbType === 'sql') {
-        await artistaSql.create(datosArtista)
-
-        const artista = await artistaSql.findOne({ where: { correo_artista: datosArtista.correo_artista } })
-
+        const artista = await artistaSql.create(datosArtista)
         return artista
       } else if (dbType === 'nosql') {
-        await artistaNoSql.create(datosArtista)
-
-        const artista = await artistaSql.findOne({ where: { correo_artista: datosArtista.correo_artista } })
-
+        const artista = await artistaNoSql.create(datosArtista)
         return artista
       }
     } catch (error) {
       console.error('Error details:', error)
+      throw new Error('Error al ejecutar la consulta:', error)
+    }
+  }
+
+  static async getArtistaById ({ dbType, id }) {
+    try {
+      if (dbType === 'sql') {
+        const artista = await artistaSql.findByPk(id)
+        return artista
+      } else if (dbType === 'nosql') {
+        const artista = await artistaNoSql.findById(id).exec()
+        return artista
+      }
+    } catch (error) {
       throw new Error('Error al ejecutar la consulta:', error)
     }
   }

@@ -1,14 +1,7 @@
 import { Schema, model } from 'mongoose'
-import { randomUUID } from 'crypto'
 import { hashSync } from 'bcrypt'
 
 const Artista = new Schema({
-  id_artista: {
-    type: String,
-    required: true,
-    maxlength: 36,
-    default: randomUUID()
-  },
   nombre_artista: {
     type: String,
     required: false,
@@ -21,8 +14,7 @@ const Artista = new Schema({
   },
   telefono: {
     type: Number,
-    required: false,
-    maxLenght: 9
+    required: false
   },
   biografia: {
     type: String,
@@ -44,6 +36,10 @@ const Artista = new Schema({
     required: false,
     maxLenght: 100,
     set: password => hashSync(password, 10)
+  },
+  obras: {
+    type: [String],
+    required: false
   }
 })
 

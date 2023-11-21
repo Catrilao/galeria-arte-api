@@ -1,18 +1,17 @@
+@dbType = nosql
+
 ### Mostrar Clientes
 GET http://localhost:7892/clientes
 
-### Mostrar Artistas
-GET http://localhost:7892/artistas
-
 ### Mostrar Artistas sequelize
-GET http://localhost:7892/artistas/sql
+GET http://localhost:7892/{{dbType}}/artistas/655bfbfbc793c55a4db731a3
 
 ### Crear Artista sequelize
-POST http://localhost:7892/artistas/sql
+POST http://localhost:7892/{{dbType}}/artistas
 Content-Type: application/json
 
 {
-  "nombre_artista": "aaaaaaaaaaaaaaaaaaaaaa",
+  "nombre_artista": "bbbbbbbbbbbbbbbbbb",
   "correo_artista": "aaaaaaaaaaaaaaaaaaaae@example.com",
   "telefono": 987654321,
   "biografia": "Prueba de biografia.",
@@ -21,8 +20,28 @@ Content-Type: application/json
   "contrasenia_artista": "constrasenia segura"
 }
 
+
 ### Mostrar Obras
-GET http://localhost:7892/obras
+GET http://localhost:7892/{{dbType}}/obras/655bfc6fc793c55a4db731ac
+
+### Crear Obras
+POST http://localhost:7892/{{dbType}}/obras/
+Content-Type: application/json
+
+{
+  "titulo": "jyrdtkfgh,nu,",
+  "descripcion_obra": "Pintura de Pablo Picasso que representa el bombardeo de Guernica durante la Guerra Civil Espanola.",
+  "estilo": "Cubismo",
+  "tecnica": "Oleo sobre lienzo",
+  "anio_creacion": 1937,
+  "dimensiones": "349 cm x 776 cm",
+  "precio": 8000000,
+  "disponibilidad": 1
+}
+
+
+
+
 
 ### Mostrar Imagenes
 GET http://localhost:7892/imagenes/1

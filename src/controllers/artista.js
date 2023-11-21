@@ -1,4 +1,4 @@
-export class ArtistasController {
+export class Controller {
   constructor ({ Consultas }) {
     this.Consultas = Consultas
   }
@@ -7,6 +7,14 @@ export class ArtistasController {
     const artistas = await this.Consultas.getArtistas({ dbType: req.params.dbType })
 
     if (artistas) return res.json(artistas)
+
+    res.status(500).send('Error interno del servidor')
+  }
+
+  getArtistaById = async (req, res) => {
+    const artista = await this.Consultas.getArtistaById({ dbType: req.params.dbType, id: req.params.id })
+
+    if (artista) return res.json(artista)
 
     res.status(500).send('Error interno del servidor')
   }

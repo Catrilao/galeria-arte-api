@@ -1,12 +1,14 @@
 import { Router } from 'express'
-import { ArtistasController } from '../controllers/artista.js'
-import { Consultas as Artista } from '../models/artista.js'
+import { Controller } from '../controllers/artista.js'
+import { Consultas } from '../models/artista.js'
 
-const router = Router()
-const consultaPrueba = new ArtistasController({ Consultas: Artista })
+const router = Router({ mergeParams: true })
+const consultasArtista = new Controller({ Consultas })
 
-router.route('/:dbType')
-  .get(consultaPrueba.getArtistas)
-  .post(consultaPrueba.createArtista)
+router.route('/')
+  .get(consultasArtista.getArtistas)
+  .post(consultasArtista.createArtista)
+
+router.get('/:id', consultasArtista.getArtistaById)
 
 export default router
