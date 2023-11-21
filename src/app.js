@@ -28,8 +28,8 @@ app.use(express.static('public'))
 
 // Rutas
 app.use(router)
-router.use('/:dbType/artistas', routerArtistas)
-router.use('/:dbType/imagenes', routerImagenes)
-router.use('/:dbType/obras', routerObras)
+app.use('/:dbType/artistas', routerArtistas)
+app.use('/:dbType/imagenes', routerImagenes)
+app.use('/:dbType/obras', routerObras)
 
 export default app
