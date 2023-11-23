@@ -8,6 +8,7 @@ import './database/connection.js'
 import './database/connection-mongoose.js'
 import './database/connection-sequelize.js'
 import router from './routes/Router.js'
+import routerClientes from './routes/cliente.js'
 import routerArtistas from './routes/artista.js'
 import routerImagenes from './routes/imagen.js'
 import routerObras from './routes/obra.js'
@@ -27,6 +28,7 @@ app.use(urlencoded({ extended: true }))
 
 // Rutas
 app.use(router)
+app.use('/:dbType/clientes', routerClientes)
 app.use('/:dbType/artistas', routerArtistas)
 app.use('/:dbType/imagenes', routerImagenes)
 app.use('/:dbType/obras', routerObras)

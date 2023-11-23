@@ -14,6 +14,8 @@ const ORIGENES_PERMITIDOS = process.env.ORIGENES_PERMITIDOS
 const NODE_ENV = process.env.NODE_ENV
 const DB_ENV = process.env.DB_ENV
 
+const JWT_SECRET = process.env.JWT_SECRET
+
 const dbConfig = {
   DATABASE_URL,
   DATABASE_URI,
@@ -24,7 +26,8 @@ const dbConfig = {
   RUN_PORT,
   ORIGENES_PERMITIDOS,
   NODE_ENV,
-  DB_ENV
+  DB_ENV,
+  JWT_SECRET
 }
 
 Object.freeze(dbConfig)
