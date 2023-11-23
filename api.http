@@ -1,4 +1,5 @@
-@dbType = nosql
+@dbType = sql
+
 
 ### Mostrar Clientes
 GET http://localhost:7892/clientes
@@ -41,20 +42,31 @@ Content-Type: application/json
 
 
 
-
-
 ### Mostrar Imagenes
 GET http://localhost:7892/imagenes/1
 
 ### Mostrar Artista, Obras e Imagenes
 GET http://localhost:7892/obrasArtista
 
+### Mostar Clientes
+GET http://localhost:7892/{{dbType}}/clientes
+
 ### Agregar un cliente
-POST http://localhost:7892/clientes
+POST http://localhost:7892/{{dbType}}/clientes
 content-type: application/json
 
 {
-  "nombre": "nombre",
-  "correo": "correo@gmail.com",
-  "contrasenia": "password super segura"
+  "nombre_cliente": "nombre",
+  "correo_cliente": "correo@gmail.com",
+  "contrasenia_cliente": "password super segura"
+}
+
+### Login Cliente
+POST http://localhost:7892/{{dbType}}/clientes/login
+Content-Type: application/json
+
+{
+  "nombre_cliente": "nombre",
+  "correo_cliente": "correo@gmail.com",
+  "contrasenia_cliente": "password super segura"
 }
