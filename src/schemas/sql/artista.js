@@ -11,7 +11,7 @@ const Artista = sequelize.define('Artista', {
   },
   nombre_artista: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: true
   },
   correo_artista: {
     type: Sequelize.STRING,
@@ -22,19 +22,19 @@ const Artista = sequelize.define('Artista', {
   },
   telefono: {
     type: Sequelize.INTEGER,
-    allowNull: false
+    allowNull: true
   },
   biografia: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: true
   },
   nacionalidad: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: true
   },
   imagen: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: true
   },
   contrasenia_artista: {
     type: Sequelize.STRING,
