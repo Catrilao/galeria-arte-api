@@ -48,6 +48,22 @@ export class ObrasController {
 
     if (imagen) return res.status(201).json(imagen)
 
-    res.status(500).send('Error al crear el usuario')
+    res.status(500).send('Error al agregar imagen')
+  }
+
+  getArtistas = async (req, res) => {
+    const artistas = await this.Consultas.getArtistas({ dbType: req.params.dbType, id: req.params.id })
+
+    if (artistas) return res.json(artistas)
+
+    res.status(500).send('Error interno del servidor')
+  }
+
+  addArtista = async (req, res) => {
+    const artista = await this.Consultas.addArtista({ dbType: req.params.dbType, idObra: req.params.id, idArtista: req.body.idArtista })
+
+    if (artista) return res.status(201).json(artista)
+
+    res.status(500).send('Error al agregar artista')
   }
 }

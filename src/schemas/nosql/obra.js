@@ -37,7 +37,7 @@ const Obra = new Schema({
     type: [String],
     required: false
   },
-  artista: {
+  artistas: {
     type: [String],
     required: false
   }

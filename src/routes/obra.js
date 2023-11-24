@@ -19,4 +19,9 @@ router.route('/:id/imagenes')
 
 router.get('/:id/imagenes/:idImagen', consultas.getImagenById)
 
+// Rutas artistas
+router.route('/:id/artistas')
+  .get(consultas.getArtistas)
+  .post(consultas.addArtista)
+
 export default router
