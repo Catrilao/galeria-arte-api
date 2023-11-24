@@ -1,4 +1,5 @@
-import { Obra as ObraSql, Imagen } from '../schemas/sql/obra.js'
+import { Imagen } from '../schemas/sql/obra.js'
+import { Obra as ObraSql } from '../schemas/sql/artista_obra.js'
 import ObraNoSql from '../schemas/nosql/obra.js'
 
 export class Consultas {
@@ -45,22 +46,6 @@ export class Consultas {
     }
   }
 
-  static async addImagen ({ dbType, id, ruta }) {
-    try {
-      if (dbType === 'sql') {
-        await Imagen.create({ ruta, id_obra: id })
-        return true
-      } else if (dbType === 'nosql') {
-        await ObraNoSql.findByIdAndUpdate(id, { $push: { imagenes: ruta } }, { new: true })
-        return true
-      }
-      return false
-    } catch (error) {
-      console.error('Error details:', error)
-      throw new Error('Error al ejecutar la consulta:', error)
-    }
-  }
-
   static async getImagenes ({ dbType, id }) {
     try {
       if (dbType === 'sql') {
@@ -68,7 +53,6 @@ export class Consultas {
         return imagenes
       } else if (dbType === 'nosql') {
         const obra = await ObraNoSql.findById(id).exec()
-        console.log({ obra })
         return obra.imagenes
       }
     } catch (error) {
@@ -86,6 +70,54 @@ export class Consultas {
         const obra = await ObraNoSql.findById(id).exec()
         return obra.imagenes.at(idImagen)
       }
+    } catch (error) {
+      console.error('Error details:', error)
+      throw new Error('Error al ejecutar la consulta:', error)
+    }
+  }
+
+  static async addImagen ({ dbType, id, ruta }) {
+    try {
+      if (dbType === 'sql') {
+        await Imagen.create({ ruta, id_obra: id })
+        return true
+      } else if (dbType === 'nosql') {
+        await ObraNoSql.findByIdAndUpdate(id, { $push: { imagenes: ruta } }, { new: true })
+        return true
+      }
+      return false
+    } catch (error) {
+      console.error('Error details:', error)
+      throw new Error('Error al ejecutar la consulta:', error)
+    }
+  }
+
+  static async getArtistas ({ dbType, id }) {
+    try {
+      if (dbType === 'sql') {
+        const obra = await ObraSql.findByPk(id)
+        return await obra.getArtista()
+      } else if (dbType === 'nosql') {
+        const obra = await ObraNoSql.findById(id).exec()
+        return obra.artistas
+      }
+    } catch (error) {
+      console.error('Error details:', error)
+      throw new Error('Error al ejecutar la consulta:', error)
+    }
+  }
+
+  static async addArtista ({ dbType, idObra, idArtista }) {
+    try {
+      if (dbType === 'sql') {
+        const obra = await ObraSql.findByPk(idObra)
+        await obra.addArtista(idArtista)
+        return true
+      } else if (dbType === 'nosql') {
+        await ObraNoSql.findByIdAndUpdate(idObra, { $push: { artistas: idArtista } }, { new: true })
+        return true
+      }
+      return false
     } catch (error) {
       console.error('Error details:', error)
       throw new Error('Error al ejecutar la consulta:', error)

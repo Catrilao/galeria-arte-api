@@ -1,11 +1,11 @@
-@dbType = sql
+@dbType = nosql
 
 
 ### Mostrar Clientes
 GET http://localhost:7892/clientes
 
 ### Mostrar Artistas sequelize
-GET http://localhost:7892/{{dbType}}/artistas/655bfbfbc793c55a4db731a3
+GET http://localhost:7892/{{dbType}}/artistas/
 
 ### Crear Artista sequelize
 POST http://localhost:7892/{{dbType}}/artistas
@@ -54,7 +54,27 @@ Content-Type: application/json
 }
 
 
+### Mostrar Artistas de una obra
+GET http://localhost:7892/{{dbType}}/obras/1/artistas
 
+### Agregar Artistas a una obra
+POST http://localhost:7892/{{dbType}}/obras/1/artistas/
+Content-Type: application/json
+
+{
+  "idArtista": "5d11db85-40c8-4aae-b0e1-792d114c0c6c"
+}
+
+### Mostrar Obras de un artista
+GET http://localhost:7892/{{dbType}}/artistas/6557e7396ce5b254a976ef48/obras
+
+### Agregar obra a un artista
+POST http://localhost:7892/{{dbType}}/artistas/6557e7396ce5b254a976ef48/obras
+Content-Type: application/json
+
+{
+  "idObra": "ruta 2"
+}
 
 
 ### Mostrar Artista, Obras e Imagenes

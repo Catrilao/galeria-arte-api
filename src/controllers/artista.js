@@ -26,4 +26,20 @@ export class Controller {
 
     res.status(500).send('Error al crear el usuario')
   }
+
+  getObras = async (req, res) => {
+    const obras = await this.Consultas.getObras({ dbType: req.params.dbType, id: req.params.id })
+
+    if (obras) return res.json(obras)
+
+    res.status(500).send('Error interno del servidor')
+  }
+
+  addObra = async (req, res) => {
+    const artista = await this.Consultas.addObra({ dbType: req.params.dbType, idArtista: req.params.id, idObra: req.body.idObra })
+
+    if (artista) return res.json(artista)
+
+    res.status(500).send('Error interno del servidor')
+  }
 }
