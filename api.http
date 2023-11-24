@@ -23,14 +23,14 @@ Content-Type: application/json
 
 
 ### Mostrar Obras
-GET http://localhost:7892/{{dbType}}/obras/655bfc6fc793c55a4db731ac
+GET http://localhost:7892/{{dbType}}/obras/
 
 ### Crear Obras
 POST http://localhost:7892/{{dbType}}/obras/
 Content-Type: application/json
 
 {
-  "titulo": "jyrdtkfgh,nu,",
+  "titulo": "qqqqqqqqqqqqqqqqqq",
   "descripcion_obra": "Pintura de Pablo Picasso que representa el bombardeo de Guernica durante la Guerra Civil Espanola.",
   "estilo": "Cubismo",
   "tecnica": "Oleo sobre lienzo",
@@ -43,7 +43,19 @@ Content-Type: application/json
 
 
 ### Mostrar Imagenes
-GET http://localhost:7892/imagenes/1
+GET http://localhost:7892/{{dbType}}/obras/1/imagenes
+
+### Agregar Imagenes a una obra
+POST http://localhost:7892/{{dbType}}/obras/656024ba72188fc143de48aa/imagenes
+Content-Type: application/json
+
+{
+  "ruta": "url de imagen 2"
+}
+
+
+
+
 
 ### Mostrar Artista, Obras e Imagenes
 GET http://localhost:7892/obrasArtista
@@ -66,7 +78,15 @@ POST http://localhost:7892/{{dbType}}/clientes/login
 Content-Type: application/json
 
 {
-  "nombre_cliente": "nombre",
+  "correo_cliente": "correo@gmail.com",
+  "contrasenia_cliente": "password super segura"
+}
+
+### Login Cliente remoto
+POST https://galeria-arte-api.onrender.com/sql/clientes/login
+Content-Type: application/json
+
+{
   "correo_cliente": "correo@gmail.com",
   "contrasenia_cliente": "password super segura"
 }

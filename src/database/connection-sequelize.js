@@ -1,5 +1,4 @@
-import Sequelize, { ConnectionError as SequelizeConnectionError } from 'sequelize'
-import { ConnectionError } from '../errors/errors.js'
+import Sequelize from 'sequelize'
 import dbConfig from '../constants/constants.js'
 
 let sequelize
@@ -31,7 +30,7 @@ if (dbConfig.DB_ENV === 'local') {
     }
   )
 } else {
-  throw new ConnectionError('No se ha especificado un entorno de base de datos válido')
+  throw new Error('No se ha especificado un entorno de base de datos válido')
 }
 
 sequelize.authenticate()
@@ -40,7 +39,6 @@ sequelize.authenticate()
   })
   .catch((error) => {
     console.error('Error al conectar la base de datos MySQL a través de Sequelize:', error)
-    throw new SequelizeConnectionError('Error al conectar la base de datos MySQL a través de Sequelize')
   })
 
 export default sequelize
