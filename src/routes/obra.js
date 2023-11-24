@@ -12,4 +12,11 @@ router.route('/')
 
 router.get('/:id', consultas.getObraById)
 
+// Rutas imagenes
+router.route('/:id/imagenes')
+  .get(consultas.getImagenes)
+  .post(consultas.addImagen)
+
+router.get('/:id/imagenes/:idImagen', consultas.getImagenById)
+
 export default router

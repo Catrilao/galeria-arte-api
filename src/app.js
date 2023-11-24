@@ -10,7 +10,6 @@ import './database/connection-sequelize.js'
 import router from './routes/Router.js'
 import routerClientes from './routes/cliente.js'
 import routerArtistas from './routes/artista.js'
-import routerImagenes from './routes/imagen.js'
 import routerObras from './routes/obra.js'
 
 const app = express()
@@ -22,7 +21,7 @@ swagger(app)
 app.set('env', dbConfig.NODE_ENV)
 app.use(cors)
 app.use(helmet())
-app.use(morgan('dev'))
+app.use(morgan(dbConfig.NODE_ENV === 'develoment' ? 'dev' : 'combined'))
 app.use(json())
 app.use(urlencoded({ extended: true }))
 
@@ -30,7 +29,6 @@ app.use(urlencoded({ extended: true }))
 app.use(router)
 app.use('/:dbType/clientes', routerClientes)
 app.use('/:dbType/artistas', routerArtistas)
-app.use('/:dbType/imagenes', routerImagenes)
 app.use('/:dbType/obras', routerObras)
 
 export default app

@@ -26,4 +26,28 @@ export class ObrasController {
 
     res.status(500).send('Error al crear el usuario')
   }
+
+  getImagenes = async (req, res) => {
+    const imagenes = await this.Consultas.getImagenes({ dbType: req.params.dbType, id: req.params.id })
+
+    if (imagenes) return res.json(imagenes)
+
+    res.status(500).send('Error interno del servidor')
+  }
+
+  getImagenById = async (req, res) => {
+    const imagen = await this.Consultas.getImagenById({ dbType: req.params.dbType, id: req.params.id, idImagen: req.params.idImagen })
+
+    if (imagen) return res.json(imagen)
+
+    res.status(500).send('Error interno del servidor')
+  }
+
+  addImagen = async (req, res) => {
+    const imagen = await this.Consultas.addImagen({ dbType: req.params.dbType, id: req.params.id, ruta: req.body.ruta })
+
+    if (imagen) return res.status(201).json(imagen)
+
+    res.status(500).send('Error al crear el usuario')
+  }
 }

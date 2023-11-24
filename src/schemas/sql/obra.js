@@ -45,4 +45,27 @@ const Obra = sequelize.define('Obra', {
   timestamps: false
 })
 
-export default Obra
+const Imagen = sequelize.define('Imagen', {
+  id_imagen: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+    allowNull: false,
+    autoIncrement: true
+  },
+  ruta: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  id_obra: {
+    type: Sequelize.INTEGER,
+    allowNull: false
+  }
+}, {
+  tableName: 'imagen',
+  timestamps: false
+})
+
+Obra.hasMany(Imagen, { foreignKey: 'id_obra' })
+Imagen.belongsTo(Obra, { foreignKey: 'id_obra' })
+
+export { Obra, Imagen }

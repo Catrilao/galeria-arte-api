@@ -13,17 +13,20 @@ router.route('/')
   .get(consultas.getClientes)
   .post(consultas.createCliente)
 
-// router.post('/login', consultas.login)
-
 router.post('/login', async (req, res) => {
-  const cliente = await consultas.login({ dbType: req.params.dbType, datosCliente: req.body })
+  try {
+    const cliente = await consultas.login({ dbType: req.params.dbType, datosCliente: req.body })
 
-  if (cliente === null) return res.status(404).json({ message: 'Cliente no existe' })
+    if (cliente === null) return res.status(404).json({ message: 'Cliente no existe' })
 
-  if (!cliente) return res.status(401).json({ message: 'Credenciales incorrectas' })
+    if (!cliente) return res.status(401).json({ message: 'Credenciales incorrectas' })
 
-  const token = jwt.sign({ id: cliente.id_cliente }, secret)
-  return res.status(200).json({ token })
+    const token = jwt.sign({ id: cliente.id_cliente }, secret)
+    return res.status(200).json({ token })
+  } catch (error) {
+    console.error(error)
+    return res.status(500).json({ message: 'Ha ocurrido un error' })
+  }
 })
 
 router.use(expressjwt({ secret, algorithms: ['HS256'] }))
