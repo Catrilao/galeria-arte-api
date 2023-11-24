@@ -1,4 +1,4 @@
-@dbType = nosql
+@dbType = sql
 
 
 ### Mostrar Clientes
@@ -21,6 +21,15 @@ Content-Type: application/json
   "contrasenia_artista": "constrasenia segura"
 }
 
+
+### Artista Login
+POST http://localhost:7892/{{dbType}}/artistas/login
+Content-Type: application/json
+
+{
+  "correo_artista": "aaaaaaaaaaaaaaaaaaaae@example.com",
+  "contrasenia_artista": "constrasenia segura"
+}
 
 ### Mostrar Obras
 GET http://localhost:7892/{{dbType}}/obras/

@@ -1,4 +1,5 @@
 import pool from '../database/connection.js'
+import { compareSync } from 'bcrypt'
 import { Artista as ArtistaSql } from '../schemas/sql/artista_obra.js'
 import ArtistaNoSql from '../schemas/nosql/artista.js'
 
@@ -75,6 +76,30 @@ export class Consultas {
       return false
     } catch (error) {
       console.error('Error details:', error)
+      throw new Error('Error al ejecutar la consulta:', error)
+    }
+  }
+
+  static async login ({ dbType, datosArtista }) {
+    console.log('Model', { dbType })
+
+    try {
+      let artista
+      if (dbType === 'sql') {
+        artista = await ArtistaSql.findOne({ where: { correo_artista: datosArtista.correo_artista } })
+      } else if (dbType === 'nosql') {
+        artista = await ArtistaNoSql.findOne({ correo_artista: datosArtista.correo_artista }).exec()
+      }
+
+      // Artista no existe
+      if (!artista) return null
+
+      // Credenciales incorrectas
+      if (!(compareSync(datosArtista.contrasenia_artista, artista.contrasenia_artista))) return false
+
+      // Artista existe y credenciales correctas
+      return artista
+    } catch (error) {
       throw new Error('Error al ejecutar la consulta:', error)
     }
   }

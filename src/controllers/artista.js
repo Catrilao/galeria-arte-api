@@ -42,4 +42,10 @@ export class Controller {
 
     res.status(500).send('Error interno del servidor')
   }
+
+  login = async ({ dbType, datosArtista }) => {
+    const artista = await this.Consultas.login({ dbType, datosArtista })
+
+    return artista
+  }
 }
