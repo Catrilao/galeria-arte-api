@@ -30,14 +30,12 @@ Content-Type: application/json
 GET http://localhost:7892/{{dbType}}/artistas/misObras/
 Authorization: Bearer 
 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDEwNDA4MjF9.drbXIXNS5dciKeEXaaGWJUtBkUkxmqe4F55iGHwh-Ko
-b6523898-98b7-41e1-a569-0df4c53d16af
 
 ### Mostrar Obras
 GET http://localhost:7892/{{dbType}}/obras/
 
 ### Crear Obras
 POST http://localhost:7892/nosql/obras/
-
 Content-Type: application/json
 
 {
