@@ -26,16 +26,12 @@ export class ObrasController {
   };
 
   createObra = async (req, res) => {
-    const obra = await this.Consultas.createObra({
-      dbType: req.params.dbType,
-      datosObra: req.body,
-      idArtista: req.body.id,
-    });
+    const obra = await this.Consultas.createObra({ dbType: req.params.dbType, datosObra: req.body, idArtista: req.body.id })
 
-    if (obra) return res.status(201).json(obra);
+    if (obra) return res.status(201).json(obra)
 
-    res.status(500).send("Error al crear la obra");
-  };
+    res.status(500).send('Error al crear la obra')
+  }
 
   deleteObra = async (req, res) => {
     const obra = await this.Consultas.deleteObra({
