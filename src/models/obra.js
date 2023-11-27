@@ -37,7 +37,8 @@ export class Consultas {
         const obra = await ObraSql.create(datosObra)
         return obra
       } else if (dbType === 'nosql') {
-        const obra = await ObraNoSql.create(datosObra)
+        console.log('Models 1', { datosObra })
+        const obra = await ObraNoSql.create(datosObra).exec()
         return obra
       }
     } catch (error) {

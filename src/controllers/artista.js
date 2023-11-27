@@ -48,4 +48,12 @@ export class Controller {
 
     return artista
   }
+
+  getMisObras = async ({ dbType, id }) => {
+    console.log('Controller 1', { dbType, id })
+    const datos = await this.Consultas.getMisObras({ dbType, id })
+    console.log('Controller 2', { datos })
+
+    return datos
+  }
 }

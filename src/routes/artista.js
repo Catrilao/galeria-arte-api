@@ -13,7 +13,13 @@ router.route('/')
   .get(consultasArtista.getArtistas)
   .post(consultasArtista.createArtista)
 
-router.get('/:id', consultasArtista.getArtistaById)
+router.get('/:id', (req, res, next) => {
+  if (req.params.id === 'misObras') {
+    next('route')
+  } else {
+    next()
+  }
+}, consultasArtista.getArtistaById)
 
 // Rutas obras
 router.route('/:id/obras')
@@ -22,7 +28,6 @@ router.route('/:id/obras')
 
 const secret = dbConfig.JWT_SECRET
 router.post('/login', async (req, res) => {
-  console.log('Router', { dbType: req.params.dbType })
   try {
     const artista = await consultasArtista.login({ dbType: req.params.dbType, datosArtista: req.body })
 
@@ -39,5 +44,26 @@ router.post('/login', async (req, res) => {
 })
 
 router.use(expressjwt({ secret, algorithms: ['HS256'] }))
+
+router.get('/misObras', async (req, res) => {
+  try {
+    const token = req.headers.authorization.split(' ')[1]
+    console.log({ headers: req.headers })
+    console.log({ token })
+
+    const { id } = jwt.verify(token, secret)
+
+    console.log('Router 1', { id })
+    const datos = await consultasArtista.getMisObras({ dbType: req.params.dbType, id })
+    console.log('Router 2', { datos })
+
+    if (datos.length === 0) return res.status(404).json({ message: 'No hay datos' })
+
+    return res.status(200).json(datos)
+  } catch (error) {
+    console.error(error)
+    return res.status(500).json({ message: 'Ha ocurrido un error' })
+  }
+})
 
 export default router

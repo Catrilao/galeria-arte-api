@@ -20,6 +20,8 @@ export class ObrasController {
   }
 
   createObra = async (req, res) => {
+    console.log('Controller 1', { req })
+    console.log('Controller 1', { body: req.body })
     const obra = await this.Consultas.createObra({ dbType: req.params.dbType, datosObra: req.body })
 
     if (obra) return res.status(201).json(obra)
