@@ -43,6 +43,14 @@ export class Consultas {
           artistas: idArtista,
         });
 
+        const idObra = obra._id;
+
+        await ArtistaNoSql.findByIdAndUpdate(
+          idArtista,
+          { $push: { obras: idObra } },
+          { new: true },
+        );
+
         return obra;
       }
     } catch (error) {
