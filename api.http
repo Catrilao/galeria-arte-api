@@ -8,16 +8,11 @@ GET http://localhost:7892/clientes
 GET http://localhost:7892/{{dbType}}/artistas/
 
 ### Crear Artista sequelize
-POST http://localhost:7892/{{dbType}}/artistas
+POST https://galeria-arte-api.onrender.com/{{dbType}}/artistas
 Content-Type: application/json
 
 {
-  "nombre_artista": "bbbbbbbbbbbbbbbbbb",
-  "correo_artista": "aaaaaaaaaaaaaaaaaaaae@example.com",
-  "telefono": 987654321,
-  "biografia": "Prueba de biografia.",
-  "nacionalidad": "Italiano",
-  "imagen": "url de imagen",
+  "correo_artista": "correo@prueba.com",
   "contrasenia_artista": "constrasenia segura"
 }
 
@@ -27,15 +22,22 @@ POST http://localhost:7892/{{dbType}}/artistas/login
 Content-Type: application/json
 
 {
-  "correo_artista": "aaaaaaaaaaaaaaaaaaaae@example.com",
+  "correo_artista": "correo@prueba.com",
   "contrasenia_artista": "constrasenia segura"
 }
+
+### Artista mis obras
+GET http://localhost:7892/{{dbType}}/artistas/misObras/
+Authorization: Bearer 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDEwNDA4MjF9.drbXIXNS5dciKeEXaaGWJUtBkUkxmqe4F55iGHwh-Ko
+b6523898-98b7-41e1-a569-0df4c53d16af
 
 ### Mostrar Obras
 GET http://localhost:7892/{{dbType}}/obras/
 
 ### Crear Obras
-POST http://localhost:7892/{{dbType}}/obras/
+POST http://localhost:7892/nosql/obras/
+
 Content-Type: application/json
 
 {
@@ -75,7 +77,7 @@ Content-Type: application/json
 }
 
 ### Mostrar Obras de un artista
-GET http://localhost:7892/{{dbType}}/artistas/6557e7396ce5b254a976ef48/obras
+GET http://localhost:7892/{{dbType}}/artistas/1049b985-2a2b-42a1-ba23-e2aa476fae3b/obras
 
 ### Agregar obra a un artista
 POST http://localhost:7892/{{dbType}}/artistas/6557e7396ce5b254a976ef48/obras

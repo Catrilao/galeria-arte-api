@@ -104,6 +104,39 @@ export class Consultas {
     }
   }
 
+  static async getMisObras ({ dbType, id }) {
+    console.log('Models 1', { dbType, id })
+
+    try {
+      if (dbType === 'sql') {
+        const artista = await ArtistaSql.findByPk(id)
+
+        const obras = await artista.getObras()
+
+        const imagenesPromesas = obras.map(obra => obra.getImagenes())
+        const imagenesArray = await Promise.all(imagenesPromesas)
+
+        // Flatten the array of arrays
+        const imagenes = [].concat(...imagenesArray)
+        return ({ artista, obras, imagenes })
+      } else if (dbType === 'nosql') {
+        const artista = await ArtistaNoSql.findById(id).exec()
+
+        const imagenesPromesas = artista.obras.map(obra => obra.getImagenes())
+        const imagenesArray = await Promise.all(imagenesPromesas)
+
+        const imagenes = [].concat(...imagenesArray)
+
+        const datos = ({ artista, obras: artista.obras, imagenes })
+        console.log('Models 2', { datos })
+        return datos
+      }
+    } catch (error) {
+      console.error('Error details:', error)
+      throw new Error('Error al ejecutar la consulta:', error)
+    }
+  }
+
   static async getObrasArtista () {
     try {
       const [datos] = await pool.query(`
