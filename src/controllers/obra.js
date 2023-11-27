@@ -26,14 +26,10 @@ export class ObrasController {
   };
 
   createObra = async (req, res) => {
-    const token = req.body.token;
-    const secret = dbConfig.JWT_SECRET;
-    const idArtista = jwt.decode(token, secret, { algorithms: ["HS256"] }).id;
-
     const obra = await this.Consultas.createObra({
       dbType: req.params.dbType,
       datosObra: req.body,
-      idArtista,
+      idArtista: req.body.id,
     });
 
     if (obra) return res.status(201).json(obra);
