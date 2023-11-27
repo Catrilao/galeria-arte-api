@@ -4,7 +4,7 @@ import { Artista as ArtistaSql } from '../schemas/sql/artista_obra.js'
 import ArtistaNoSql from '../schemas/nosql/artista.js'
 
 export class Consultas {
-  static async getArtistas ({ dbType }) {
+  static async getArtistas({ dbType }) {
     try {
       if (dbType === 'sql') {
         const artistas = await ArtistaSql.findAll()
@@ -18,7 +18,7 @@ export class Consultas {
     }
   }
 
-  static async createArtista ({ dbType, datosArtista }) {
+  static async createArtista({ dbType, datosArtista }) {
     try {
       if (dbType === 'sql') {
         const artista = await ArtistaSql.create(datosArtista)
@@ -33,7 +33,7 @@ export class Consultas {
     }
   }
 
-  static async getArtistaById ({ dbType, id }) {
+  static async getArtistaById({ dbType, id }) {
     try {
       if (dbType === 'sql') {
         const artista = await ArtistaSql.findByPk(id)
@@ -47,7 +47,7 @@ export class Consultas {
     }
   }
 
-  static async getObras ({ dbType, id }) {
+  static async getObras({ dbType, id }) {
     try {
       if (dbType === 'sql') {
         const artista = await ArtistaSql.findByPk(id)
@@ -62,8 +62,7 @@ export class Consultas {
     }
   }
 
-  static async addObra ({ dbType, idArtista, idObra }) {
-    console.log({ dbType, idArtista, idObra })
+  static async addObra({ dbType, idArtista, idObra }) {
     try {
       if (dbType === 'sql') {
         const artista = await ArtistaSql.findByPk(idArtista)
@@ -80,9 +79,7 @@ export class Consultas {
     }
   }
 
-  static async login ({ dbType, datosArtista }) {
-    console.log('Model', { dbType })
-
+  static async login({ dbType, datosArtista }) {
     try {
       let artista
       if (dbType === 'sql') {
@@ -104,22 +101,24 @@ export class Consultas {
     }
   }
 
-  static async getMisObras ({ dbType, id }) {
-    console.log('Models 1', { dbType, id })
-
+  static async getMisObras({ dbType, id }) {
     try {
       if (dbType === 'sql') {
+        console.log({ sql_id: id })
         const artista = await ArtistaSql.findByPk(id)
 
         const obras = await artista.getObras()
 
+        const imagen = obras.map(obra => obras.imagenes)
+        console.log({ imagen })
+
         const imagenesPromesas = obras.map(obra => obra.getImagenes())
         const imagenesArray = await Promise.all(imagenesPromesas)
 
-        // Flatten the array of arrays
         const imagenes = [].concat(...imagenesArray)
         return ({ artista, obras, imagenes })
       } else if (dbType === 'nosql') {
+        console.log({ nosql_is: id })
         const artista = await ArtistaNoSql.findById(id).exec()
 
         const imagenesPromesas = artista.obras.map(obra => obra.getImagenes())
@@ -128,7 +127,6 @@ export class Consultas {
         const imagenes = [].concat(...imagenesArray)
 
         const datos = ({ artista, obras: artista.obras, imagenes })
-        console.log('Models 2', { datos })
         return datos
       }
     } catch (error) {
@@ -137,7 +135,7 @@ export class Consultas {
     }
   }
 
-  static async getObrasArtista () {
+  static async getObrasArtista() {
     try {
       const [datos] = await pool.query(`
         SELECT a.id_artista, a.nombre_artista, o.titulo, o.anio_creacion, o.precio, i.ruta
