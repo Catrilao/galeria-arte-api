@@ -8,11 +8,11 @@ GET http://localhost:7892/clientes
 GET http://localhost:7892/{{dbType}}/artistas/
 
 ### Crear Artista
-POST https://galeria-arte-api.onrender.com/nosql/artistas
+POST http://localhost:7892/nosql/artistas
 Content-Type: application/json
 
 {
-  "correo_artista": "qwertyu@prueba.com",
+  "correo_artista": "1234567891011@prueba.com",
   "contrasenia_artista": "constrasenia segura"
 }
 
@@ -22,22 +22,22 @@ POST http://localhost:7892/nosql/artistas/login
 Content-Type: application/json
 
 {
-  "correo_artista": "qwertyu@prueba.com",
+  "correo_artista": "1234567891011@prueba.com",
   "contrasenia_artista": "constrasenia segura"
 }
 
 ### Artista mis obras
-GET http://localhost:7892/nosql/artistas/misObras/656507fcbcf089a5ae091cdb
+GET http://localhost:7892/nosql/artistas/misObras/6565b96a5d6b8d0f202d3ba6
 
 ### Mostrar Obras
 GET http://localhost:7892/{{dbType}}/obras/
  
 ### Crear Obras
-POST https://galeria-arte-api.onrender.com/nosql/obras/
+POST http://localhost:7892/nosql/obras/
 Content-Type: application/json
 
 {
-  "titulo": "qqqqqqqqqqqqqqqqqq",
+  "titulo": "111111",
   "descripcion_obra": "Pintura de Pablo Picasso que representa el bombardeo de Guernica durante la Guerra Civil Espanola.",
   "estilo": "Cubismo",
   "tecnica": "Oleo sobre lienzo",
@@ -45,7 +45,7 @@ Content-Type: application/json
   "dimensiones": "349 cm x 776 cm",
   "precio": 8000000,
   "disponibilidad": 1,
-  "id": "656507fcbcf089a5ae091cdb"
+  "id": "6565b96a5d6b8d0f202d3ba6"
 }
 
 
