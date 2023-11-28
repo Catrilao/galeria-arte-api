@@ -12,29 +12,34 @@ POST http://localhost:7892/nosql/artistas
 Content-Type: application/json
 
 {
-  "correo_artista": "correo@prueba.com",
+  "correo_artista": "qwertyu@prueba.com",
   "contrasenia_artista": "constrasenia segura"
 }
 
 
 ### Artista Login
-POST http://localhost:7892/sql/artistas/login
+POST http://localhost:7892/nosql/artistas/login
 Content-Type: application/json
 
 {
-  "correo_artista": "correo@prueba.com",
+  "correo_artista": "qwertyu@prueba.com",
   "contrasenia_artista": "constrasenia segura"
 }
 
 ### Artista mis obras
-GET http://localhost:7892/sql/artistas/misObras/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJjNjVmMTAxLTI1YmEtNGVkYS05OWZhLThmN2JlZTkyNzZkYyIsImlhdCI6MTcwMTEwNzU4N30.slCP7zcDg8sE4EhlpLF_AU9-sP7y2ldGuz0g4iPkg5M
+GET http://localhost:7892/nosql/artistas/misObras/
+Content-Type: application/json
+
+{
+  "id": "656507fcbcf089a5ae091cdb"
+}
 
 ### Mostrar Obras
 GET http://localhost:7892/{{dbType}}/obras/
-
+ 
 ### Crear Obras
 POST http://localhost:7892/nosql/obras/
+
 Content-Type: application/json
 
 {
@@ -45,12 +50,9 @@ Content-Type: application/json
   "anio_creacion": 1937,
   "dimensiones": "349 cm x 776 cm",
   "precio": 8000000,
-  "disponibilidad": 1,
-  "imagenes": ["1","2"]
+  "disponibilidad": 1
 }
 
-### Eliminar Obra
-DELETE http://localhost:7892/{{dbType}}/obras/6564c81e196391e97939b9e4
 
 
 ### Mostrar Imagenes
@@ -77,14 +79,14 @@ Content-Type: application/json
 }
 
 ### Mostrar Obras de un artista
-GET http://localhost:7892/{{dbType}}/artistas/bc65f101-25ba-4eda-99fa-8f7bee9276dc/obras
+GET http://localhost:7892/{{dbType}}/artistas/1049b985-2a2b-42a1-ba23-e2aa476fae3b/obras
 
 ### Agregar obra a un artista
-POST http://localhost:7892/{{dbType}}/artistas/bc65f101-25ba-4eda-99fa-8f7bee9276dc/obras
+POST http://localhost:7892/{{dbType}}/artistas/6557e7396ce5b254a976ef48/obras
 Content-Type: application/json
 
 {
-  "idObra": "2"
+  "idObra": "ruta 2"
 }
 
 
