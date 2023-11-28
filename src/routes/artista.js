@@ -2,7 +2,6 @@ import { Router } from 'express'
 import { Controller } from '../controllers/artista.js'
 import { Consultas } from '../models/artista.js'
 import jwt from 'jsonwebtoken'
-import { expressjwt } from 'express-jwt'
 import dbConfig from '../constants/constants.js'
 
 const router = Router({ mergeParams: true })
@@ -43,19 +42,9 @@ router.post('/login', async (req, res) => {
   }
 })
 
-router.use(expressjwt({ secret, algorithms: ['HS256'] }))
-
 router.get('/misObras', async (req, res) => {
   try {
-    const token = req.headers.authorization.split(' ')[1]
-    console.log({ headers: req.headers })
-    console.log({ token })
-
-    const { id } = jwt.verify(token, secret)
-
-    console.log('Router 1', { id })
-    const datos = await consultasArtista.getMisObras({ dbType: req.params.dbType, id })
-    console.log('Router 2', { datos })
+    const datos = await consultasArtista.getMisObras({ dbType: req.params.dbType, id: req.body.id })
 
     if (datos.length === 0) return res.status(404).json({ message: 'No hay datos' })
 
