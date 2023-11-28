@@ -7,8 +7,8 @@ GET http://localhost:7892/clientes
 ### Mostrar Artistas sequelize
 GET http://localhost:7892/{{dbType}}/artistas/
 
-### Crear Artista sequelize
-POST http://localhost:7892/nosql/artistas
+### Crear Artista
+POST https://galeria-arte-api.onrender.com/nosql/artistas
 Content-Type: application/json
 
 {
@@ -18,7 +18,7 @@ Content-Type: application/json
 
 
 ### Artista Login
-POST http://localhost:7892/nosql/artistas/login
+POST https://galeria-arte-api.onrender.com/nosql/artistas/login
 Content-Type: application/json
 
 {
@@ -27,19 +27,13 @@ Content-Type: application/json
 }
 
 ### Artista mis obras
-GET http://localhost:7892/nosql/artistas/misObras/
-Content-Type: application/json
-
-{
-  "id": "656507fcbcf089a5ae091cdb"
-}
+GET http://localhost:7892/nosql/artistas/misObras/656507fcbcf089a5ae091cdb
 
 ### Mostrar Obras
 GET http://localhost:7892/{{dbType}}/obras/
  
 ### Crear Obras
-POST http://localhost:7892/nosql/obras/
-
+POST https://galeria-arte-api.onrender.com/nosql/obras/
 Content-Type: application/json
 
 {
@@ -50,7 +44,8 @@ Content-Type: application/json
   "anio_creacion": 1937,
   "dimensiones": "349 cm x 776 cm",
   "precio": 8000000,
-  "disponibilidad": 1
+  "disponibilidad": 1,
+  "id": "656507fcbcf089a5ae091cdb"
 }
 
 
