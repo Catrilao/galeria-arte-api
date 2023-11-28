@@ -85,7 +85,7 @@ export class Consultas {
       let artista, id
       if (dbType === 'sql') {
         artista = await ArtistaSql.findOne({ where: { correo_artista: datosArtista.correo_artista } })
-        id = artista.artista_ids
+        id = artista.artista_id
       } else if (dbType === 'nosql') {
         artista = await ArtistaNoSql.findOne({ correo_artista: datosArtista.correo_artista }).exec()
         id = artista._id
