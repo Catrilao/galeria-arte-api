@@ -85,7 +85,7 @@ export class Consultas {
       let artista, id
       if (dbType === 'sql') {
         artista = await ArtistaSql.findOne({ where: { correo_artista: datosArtista.correo_artista } })
-        id = artista.artista_ids
+        id = artista.dataValues.id_artista
       } else if (dbType === 'nosql') {
         artista = await ArtistaNoSql.findOne({ correo_artista: datosArtista.correo_artista }).exec()
         id = artista._id
@@ -95,11 +95,13 @@ export class Consultas {
       if (!artista) return null
 
       // Credenciales incorrectas
-      if (!(compareSync(datosArtista.contrasenia_artista, artista.contrasenia_artista))) return false
+      const passwordMatch = compareSync(datosArtista.contrasenia_artista, artista.contrasenia_artista)
+      if (!passwordMatch) return false
 
       // Artista existe y credenciales correctas
       return id
     } catch (error) {
+      console.error('Error details:', error)
       throw new Error('Error al ejecutar la consulta:', error)
     }
   }
@@ -112,7 +114,7 @@ export class Consultas {
 
         const obras = await artista.getObras()
 
-        const imagen = obras.map(obra => obras.imagenes)
+        const imagen = obras.map(obra => obra.imagenes)
         console.log({ imagen })
 
         const imagenesPromesas = obras.map(obra => obra.getImagenes())

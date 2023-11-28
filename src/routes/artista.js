@@ -28,7 +28,9 @@ router.route('/:id/obras')
 const secret = dbConfig.JWT_SECRET
 router.post('/login', async (req, res) => {
   try {
+    console.log({ datosArtista: req.body })
     const artista = await consultasArtista.login({ dbType: req.params.dbType, datosArtista: req.body })
+    console.log({ artista })
 
     if (artista === null) return res.status(404).json({ message: 'artista no existe' })
 
@@ -37,7 +39,7 @@ router.post('/login', async (req, res) => {
     const token = jwt.sign({ id: artista }, secret)
     return res.status(200).json({ token, id: artista })
   } catch (error) {
-    console.error(error)
+    console.error('Error:', error)
     return res.status(500).json({ message: 'Ha ocurrido un error' })
   }
 })
