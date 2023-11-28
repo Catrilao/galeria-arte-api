@@ -34,8 +34,8 @@ router.post('/login', async (req, res) => {
 
     if (!artista) return res.status(401).json({ message: 'Credenciales incorrectas' })
 
-    const token = jwt.sign({ id: artista.id_cliente }, secret)
-    return res.status(200).json({ token })
+    const token = jwt.sign({ id: artista }, secret)
+    return res.status(200).json({ token, id: artista })
   } catch (error) {
     console.error(error)
     return res.status(500).json({ message: 'Ha ocurrido un error' })

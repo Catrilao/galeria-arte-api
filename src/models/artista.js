@@ -82,11 +82,13 @@ export class Consultas {
 
   static async login ({ dbType, datosArtista }) {
     try {
-      let artista
+      let artista, id
       if (dbType === 'sql') {
         artista = await ArtistaSql.findOne({ where: { correo_artista: datosArtista.correo_artista } })
+        id = artista.artista_ids
       } else if (dbType === 'nosql') {
         artista = await ArtistaNoSql.findOne({ correo_artista: datosArtista.correo_artista }).exec()
+        id = artista._id
       }
 
       // Artista no existe
@@ -96,7 +98,7 @@ export class Consultas {
       if (!(compareSync(datosArtista.contrasenia_artista, artista.contrasenia_artista))) return false
 
       // Artista existe y credenciales correctas
-      return artista
+      return id
     } catch (error) {
       throw new Error('Error al ejecutar la consulta:', error)
     }
