@@ -42,9 +42,9 @@ router.post('/login', async (req, res) => {
   }
 })
 
-router.get('/misObras', async (req, res) => {
+router.get('/misObras/:id', async (req, res) => {
   try {
-    const datos = await consultasArtista.getMisObras({ dbType: req.params.dbType, id: req.body.id })
+    const datos = await consultasArtista.getMisObras({ dbType: req.params.dbType, id: req.params.id })
 
     if (datos.length === 0) return res.status(404).json({ message: 'No hay datos' })
 
